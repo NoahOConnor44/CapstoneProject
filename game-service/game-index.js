@@ -1,6 +1,7 @@
 //dependencies installed
 const express = require("express");
 const app = express();
+const env = require('dotenv').config();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const Game = require("./models/game");
@@ -8,7 +9,7 @@ const { Mongoose } = require("mongoose");
 const mongoose = require("mongoose");
 
 //setup mongoDB connection
-const connectionString = "mongodb+srv://r3c0n_Admin:k9UffpioKi1DFV7P@cluster0.9gz5z.mongodb.net/angulardb?retryWrites=true&w=majority";
+const connectionString = process.env.DB_CONNECTION;
 const connector = mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -66,4 +67,4 @@ app.get("/addGame", async (req, res) => {
 });
 
 //declare port 
-app.listen(2468, () => console.log("Game server listening at 2468."));
+app.listen(process.env.PORT, () => console.log("Game server listening at 2468."));
