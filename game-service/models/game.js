@@ -8,7 +8,7 @@ const GameSchema = new mongoose.Schema({
   consoleType: { type: String, default: "Game Console Availability" },
   negativeRating: { type: Number, default: 0 },
   positiveRating: { type: Number, default: 0 },
-  reviews: { type: String, default: "Video Game Reviews" },
+  reviews: [mongoose.Schema.Types.Mixed],
   recommendations: [mongoose.Schema.Types.Mixed],
 });
 
