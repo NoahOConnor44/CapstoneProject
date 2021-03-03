@@ -67,4 +67,6 @@ app.get("/addGame", async (req, res) => {
 });
 
 //declare port 
-app.listen(process.env.PORT, () => console.log("Game server listening at 2468."));
+app.listen(process.env.GAME_PORT, () =>  { 
+    console.log(`Game server listening on port ${process.env.GAME_PORT}`); 
+});
