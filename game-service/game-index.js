@@ -18,6 +18,15 @@ const connector = mongoose.connect(connectionString, {
   .then(() => console.log("Mongoose connection to Games MongoDB successfully established!")
   );
 
+// Sets up a proxy server to listen for the api-gateway requests so it can handled here in the service here
+var http = require('http');
+server = http.createServer(function (req, res) {
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.write('Proxy Request was Successful!' + '\n' + JSON.stringify(req.headers, true, 2));
+      console.log('Proxy Request was Successful!' + '\n' + JSON.stringify(req.headers, true, 2));
+      res.end();
+});
+
 //allow usage of parser packages
 app.use(bodyParser.json());
 app.use(cookieParser());

@@ -1,23 +1,29 @@
 //declare necessary dependencies
 const express = require("express");
-const app = require("express")();
+const app = express();
 const env = require("dotenv").config();
 const { createProxyMiddleware } = require('http-proxy-middleware');
 //let gameService = require("./game-service-logic");
 
-//utilizing HPM to forward request from loadGame 
-app.use("/loadGame", createProxyMiddleware({
-    //corresponding target endpoint server URL
-    target: `http://${process.env.HOST}:${process.env.GAME_PORT}/`,
-    
+//utilizes http-proxy-middleware (HPM) to forward request from the api to the correct services on different ports 
+let gameServiceTarget = `http://${process.env.HOST}:${process.env.GAME_PORT}/`;
+
+// Takes a request made to localhost:4000/loadGame and forwards it to localhost:2468/
+app.use('/loadGame', createProxyMiddleware({
+    // Target is where we want to forward the request to
+    target: gameServiceTarget,
     headers: {
-      accept: "application/json",
-      method: "GET"
-    },
-    changeOrigin: true 
+        accept: "application/json",
+        method: "GET"
+      },
+    changeOrigin: true,
+    // pathRewrite: Instead of sending the request to localhost:2468/loadGame (which doesnt exist currently) it removes the /loadGame part of the url and makes it just localhost:2468/.
+    pathRewrite: {
+        '^/loadGame' : '/'
+    }
 }));
 
-//declare port
+// Opens the port for the gateway and listens for incoming requests to forward to individual services.
 app.listen(process.env.API_PORT, () =>  { 
     console.log(`API-Gateway listening on port ${process.env.API_PORT}`); 
 });
