@@ -33,47 +33,71 @@ app.use(cookieParser());
 
 mongoose.Promise = Promise;
 
-//test get request
-app.get("/", (req, res) => res.send("Testing game-index.js!"));
+//loadGame endpoint for accessing each video game's details
+app.post("/loadGame", (req, res) => {
 
-//test schema
-app.get("/addGame", async (req, res) => {
-    title = "Video Game Title";
-    description = "Video Game Description";
-    genre = "Video Game Genre";
-    coop = false;
-    consoleType = "Game Console Availability";
-    negativeRating = 0;
-    positiveRating = 0;
-    reviews = "Video Game Reviews";
-    recommendations = "Test";
+  //set variable for gameTitle sent in from frontend
+  const gameTitle = req.body.gameTitle;
 
-    const game = new Game({
-        title,
-        description,
-        genre,
-        coop,
-        consoleType,
-        negativeRating,
-        positiveRating,
-        reviews,
-        recommendations
-    });
+  //retrieve game information from Game database
+  Game.find().then((gameInfo) => {
+    res.json(gameInfo);
+  })
+  .catch((err) => {
+    res.json(err.message);
+  });
+})
 
-    const result = await game.save();
-
-    if(result) {
-        res.json({
-            success: true,
-            message: "Game added!",
+/*
+ Item.find( {title: req.params.searchBox} )
+        .then((items) => {
+            if (items) {
+                res.json(items);             
+            }
+            else {
+        })
+        .catch((error) => {
         });
-    } else {
-        res.json({
-            success: false,
-            message: "Game not added!",
-        });
-    }
-});
+*/
+
+// //test schema
+// app.get("/addGame", async (req, res) => {
+//     title = "Pummel Party";
+//     description = "Pummel Party is a 4-8 player online and local-multiplayer party game. Pummel friends or AI using a wide array of absurd items in the board mode and compete to destroy friendships in the unique collection of minigames.";
+//     genre = "Casual";
+//     coop = true;
+//     consoleType = "3";
+//     negativeRating = 9;
+//     positiveRating = 91;
+//     reviews = "Video Game Reviews";
+//     recommendations = "Test";
+
+//     const game = new Game({
+//         title,
+//         description,
+//         genre,
+//         coop,
+//         consoleType,
+//         negativeRating,
+//         positiveRating,
+//         reviews,
+//         recommendations
+//     });
+
+//     const result = await game.save();
+
+//     if(result) {
+//         res.json({
+//             success: true,
+//             message: "Game added!",
+//         });
+//     } else {
+//         res.json({
+//             success: false,
+//             message: "Game not added!",
+//         });
+//     }
+// });
 
 //declare port 
 app.listen(process.env.GAME_PORT, () =>  { 
