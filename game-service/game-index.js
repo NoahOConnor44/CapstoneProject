@@ -40,7 +40,7 @@ app.post("/loadGame", (req, res) => {
   const gameTitle = req.body.gameTitle;
 
   //retrieve game information from Game database
-  Game.find().then((gameInfo) => {
+  Game.find({title: gameTitle}).then((gameInfo) => {
     res.json(gameInfo);
   })
   .catch((err) => {
