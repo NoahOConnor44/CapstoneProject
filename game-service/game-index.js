@@ -34,31 +34,31 @@ app.use(cookieParser());
 mongoose.Promise = Promise;
 
 //loadGame endpoint for accessing each video game's details
-app.post("/loadGame", (req, res) => {
+app.post("/loadGame", async (req, res) => {
 
   //set variable for gameTitle sent in from frontend
   const gameTitle = req.body.gameTitle;
+  
+  //set game variable to hold returned game information
+  let game;
 
-  //retrieve game information from Game database
-  Game.find({title: gameTitle}).then((gameInfo) => {
-    res.json(gameInfo);
+  //find game in database using title
+  game = await Game.findOne({title: gameTitle});
+
+  //branch executes if game not found
+  if(!game){
+    res.json({
+      success: false,
+      message: "Game information not retrieved from database.",
+    })
+  }
+
+  res.json({
+    game,
+    success: true,
+    message: "Game information sucessfully retrieved from database.",
   })
-  .catch((err) => {
-    res.json(err.message);
-  });
 })
-
-/*
- Item.find( {title: req.params.searchBox} )
-        .then((items) => {
-            if (items) {
-                res.json(items);             
-            }
-            else {
-        })
-        .catch((error) => {
-        });
-*/
 
 // //test schema
 // app.get("/addGame", async (req, res) => {
