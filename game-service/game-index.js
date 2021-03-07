@@ -33,8 +33,10 @@ app.use(cookieParser());
 
 mongoose.Promise = Promise;
 
-//loadGame endpoint for accessing each video game's details
+//loadGame endpoint for accessing video game info                + to do: reach out to DB again to find games within the searched genre for recommendations, return 3 with similair ratings.
 app.post("/loadGame", async (req, res) => {
+
+  console.log("Game-index receives game title from api and retrieves info from database.");
 
   //set variable for gameTitle sent in from frontend
   const gameTitle = req.body.gameTitle;
@@ -53,6 +55,7 @@ app.post("/loadGame", async (req, res) => {
     })
   }
 
+  //wraps up json packet with game information to send back to api 
   res.json({
     game,
     success: true,
