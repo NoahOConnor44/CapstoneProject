@@ -1,0 +1,61 @@
+<!-- Game Information Page Content -->
+<div class="container">
+
+  <!-- Game Heading -->
+  <h1 class="my-4">The Game.....
+  </h1>
+
+  <!-- Game Page Item Row -->
+  <div class="row">
+
+    <!-- Load Game Photo-->
+    <div class="col-md-8">
+      <img class="img-fluid" src="../../../assets/{{game.title}}.jpg" alt="">
+    </div>
+
+    <!-- Game Page Column  -->
+    <div class="col-md-4">
+      <h3 class="my-3">Description </h3>
+      <p class="card-text"> {{ game.description }}</p>
+      <h3 class="my-3">Game information</h3>
+      <ul>
+        <li class="card-genre">Genre: {{ game.genre }}</li>
+        <li *ngIf="!game.coop">No Co-op</li>
+        <li *ngIf="game.coop">Co-op</li>
+        <li class="card-consoleType">Platform Availability: {{ game.consoleType }}</li>
+        <li class="card-negRating">Negative Rating: {{ game.negativeRating }} </li>
+        <li class="card-posRating">Positive Rating: {{ game.positiveRating }} </li>
+      </ul>
+    </div>
+
+  </div>
+  <!-- End Game Page Item Row -->
+
+  <!-- Game Recommendations Row -->
+  <h3 class="my-4">Game recommendations</h3>
+
+  <div class="row">
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+            <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+          </a>
+    </div>
+
+  </div>
+  <!-- End Game Recommendations Row -->
+
+</div>
+<!-- End Container -->
