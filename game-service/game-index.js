@@ -46,18 +46,34 @@ app.post("/loadGame", async (req, res) => {
 
   //find game in database using title
   game = await Game.findOne({title: gameTitle});
+  
+  // store rating for the search game to find recommendations, set up the game rating range.
+  let searchedGenre = game.genre;
+  let searchedTitle = game.title;
+  let rating = game.positiveRating;
+  let maxRating = rating + 3;
+  if(maxRating > 100) maxRating = 100
+  let minRating = rating - 4;
+
+  // finds any games in the database that are less than the maxRating but more than the minRating with the desired genre, sorts them by closest rating, makes sure the same title isnt returned.
+  let gameRecommendations = await Game.find({
+    genre: searchedGenre, 
+    positiveRating : { $lte : Number(maxRating), $gte : Number(minRating) },
+    title: { $ne : gameTitle}
+  }).sort( {positiveRating: 'asc'} ).exec();
 
   //branch executes if game not found
   if(!game){
-    res.json({
+    return res.json({
       success: false,
       message: "Game information not retrieved from database.",
     })
   }
 
-  //wraps up json packet with game information to send back to api 
+  //wraps up json packet with game information and the recommendations to send them back to the api 
   res.json({
     game,
+    gameRecommendations,
     success: true,
     message: "Game information sucessfully retrieved from database.",
   })
