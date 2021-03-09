@@ -7,6 +7,6 @@ export class GameModel {
     public negativeRating: number;
     public positiveRating: number;
     //public reviews: ReviewModel[] = [];
-    //public recommendations: GameModel[] = [];
+    public recommendations: GameModel[];
 }
 

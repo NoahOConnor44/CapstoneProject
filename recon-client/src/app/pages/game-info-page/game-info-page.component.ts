@@ -22,6 +22,7 @@ export class GameInfoPageComponent implements OnInit {
     consoleType: "",
     negativeRating: 0,
     positiveRating: 0,
+    recommendations: []
   }
 
   // Create variables for using necessary imports
@@ -57,6 +58,7 @@ export class GameInfoPageComponent implements OnInit {
         else if(this.game.consoleType === "3"){
           this.game.consoleType = "PC";
         }
+        this.game.recommendations = data.gameRecommendations;
 
       } else {
         alert(
