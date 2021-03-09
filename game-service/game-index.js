@@ -51,7 +51,7 @@ app.post("/loadGame", async (req, res) => {
   let searchedGenre = game.genre;
   let searchedTitle = game.title;
   let rating = game.positiveRating;
-  let maxRating = rating + 3;
+  let maxRating = rating + 12;
   if(maxRating > 100) maxRating = 100
   let minRating = rating - 4;
 
