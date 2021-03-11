@@ -1,0 +1,2 @@
+The recon client handles creating the angular web server and front end pages. Additionally, it has services within it
+to take back end service data and to update the front end for whatever the user is interested in.
