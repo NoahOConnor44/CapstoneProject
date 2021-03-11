@@ -1,0 +1,2 @@
+The game service handles returning game information and game recommendations from the request of the API gateway.
+This information is packed up and returned to the web server to dynamically update fields the user is searching for.
