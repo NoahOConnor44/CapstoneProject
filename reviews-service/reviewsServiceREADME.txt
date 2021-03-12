@@ -1,0 +1,1 @@
+The review service handles returning reviews for the games on the database as well as allowing users to add reviews for games.
