@@ -12,6 +12,7 @@
 /api-gateway/node_modules/
 /user-service/node_modules/
 /game-service/node_modules/
+/reviews-service/node_modules/
 
 # profiling files
 chrome-profiler-events*.json
