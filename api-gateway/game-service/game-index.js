@@ -1,12 +1,14 @@
 //dependencies installed
 const express = require("express");
-const app = express();
+const app = express.Router();
 const env = require('dotenv').config();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const Game = require("./models/game");
+const Game = require("../models/game");
 const { Mongoose } = require("mongoose");
 const mongoose = require("mongoose");
+const https = require('https');
+const fs = require('fs');
 
 //setup mongoDB connection
 const connectionString = process.env.DB_CONNECTION;
@@ -34,7 +36,7 @@ app.use(cookieParser());
 mongoose.Promise = Promise;
 
 //loadGame endpoint for accessing video game info                + to do: reach out to DB again to find games within the searched genre for recommendations, return 3 with similair ratings.
-app.post("/loadGame", async (req, res) => {
+app.post("/load", async (req, res) => {
 
   console.log("Game-index receives game title from api and retrieves info from database.");
 
@@ -119,6 +121,8 @@ app.post("/loadGame", async (req, res) => {
 // });
 
 //declare port 
-app.listen(process.env.GAME_PORT, () =>  { 
-    console.log(`Game server listening on port ${process.env.GAME_PORT}`); 
-});
+// app.listen(process.env.GAME_PORT, () =>  { 
+//     console.log(`Game server listening on port ${process.env.GAME_PORT}`); 
+// });
+
+module.exports = app;
