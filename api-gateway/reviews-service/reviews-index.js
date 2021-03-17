@@ -1,10 +1,10 @@
 //dependencies installed
 const express = require("express");
-const app = express();
+const app = express.Router();
 const env = require('dotenv').config();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const Review = require("./models/review");
+const Review = require("../models/review");
 const { Mongoose } = require("mongoose");
 const mongoose = require("mongoose");
 
@@ -33,12 +33,8 @@ app.use(cookieParser());
 
 mongoose.Promise = Promise;
 
-app.get("/", (req, res) => {
-    res.send("Testing reviews-index.js");
-})
-
 //loadGame endpoint for accessing video game info to load reviews from database       
-app.post("/loadGame", async (req, res) => {
+app.post("/load", async (req, res) => {
 
   console.log("Review-index receives game title from api and retrieves reviews from database.");
 
@@ -68,7 +64,7 @@ app.post("/loadGame", async (req, res) => {
 })
 
 //addReview receiving review information from frontend and saving to reviews database       +todo: pull out title,reviewText,user from the request.
-app.post("/addReview", async (req, res) => {
+app.post("/add", async (req, res) => {
 
     console.log("I made it here!");
 
@@ -97,8 +93,4 @@ app.post("/addReview", async (req, res) => {
      }
  });
 
-
-//declare port 
-app.listen(process.env.REVIEW_PORT, () =>  { 
-    console.log(`Review service listening on port ${process.env.REVIEW_PORT}`); 
-});
+module.exports = app;
