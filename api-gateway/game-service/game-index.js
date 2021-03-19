@@ -81,6 +81,36 @@ app.post("/load", async (req, res) => {
   })
 })
 
+app.post("/search", async (req, res) => {
+
+  //set variable for gameTitle sent in from frontend
+  const gameTitle = req.body.gameTitle;
+  //set game variable to hold returned game information
+  let game;
+
+  // fuzzy search result from the function below, passing the gameTitle the user sent.
+  const regexGameTitle = new RegExp(escapeRegex(gameTitle), 'gi');
+  console.log("Fuzzy match search query" + regexGameTitle);
+
+  //find game in database using title
+  game = await Game.find({title: regexGameTitle});
+
+  //branch executes if game not found
+  if(!game){
+    return res.json({
+      success: false,
+      message: "Game information not retrieved from database.",
+    })
+  }
+
+  //wraps up json packet with game information and the recommendations to send them back to the api 
+  res.json({
+    game,
+    success: true,
+    message: "Game information sucessfully retrieved from database.",
+  })
+})
+
 // //test schema
 // app.get("/addGame", async (req, res) => {
 //     title = "Pummel Party";
@@ -124,5 +154,10 @@ app.post("/load", async (req, res) => {
 // app.listen(process.env.GAME_PORT, () =>  { 
 //     console.log(`Game server listening on port ${process.env.GAME_PORT}`); 
 // });
+
+// Regular expression function to use for fuzzy search.
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = app;

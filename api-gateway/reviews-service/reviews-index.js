@@ -68,9 +68,9 @@ app.post("/add", async (req, res) => {
 
     console.log("I made it here!");
 
-    title = "Subnautica";
-    reviewText = "Review text. I Lub Dub this GAME!";
-    user = "Username";
+    title = "Stellaris";
+    reviewText = "I love this sci-fi game. It is so immersive!";
+    user = "JoeJoe234";
 
     const review = new Review({
         title,

@@ -8,7 +8,6 @@ let gameService = require("../game-service/game-index");
 let reviewsService = require("../reviews-service/reviews-index");
 
 app.use('/game', gameService);
-
 app.use('/review', reviewsService);
 
 //create HTTPS server to listen on the port for the API Gateway
