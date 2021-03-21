@@ -17,4 +17,11 @@ export class GameService {
     });
   }
 
+  // Method for loading game info by sending game title to api
+  search(gameTitle) {
+    return this.http.post<any>("/api/game/search", {
+      gameTitle,
+    });
+  }
+
 }
