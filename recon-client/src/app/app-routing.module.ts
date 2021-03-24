@@ -4,13 +4,14 @@ import { GameInfoPageComponent } from "./pages/game-info-page/game-info-page.com
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LoginPageComponent} from "./pages/login-page/login-page.component";
 import { SearchPageComponent } from "./pages/search-page/search-page.component";
+import { UserPageComponent } from './pages/user-page/user-page.component';
 
 const routes: Routes = [
-  { path: 'game/load', component: GameInfoPageComponent },
+  { path: 'game/load/:game', component: GameInfoPageComponent },
   { path: '', component: HomePageComponent},
   { path: 'login', component: LoginPageComponent},
-  { path: 'search', component: SearchPageComponent}
-
+  { path: 'game/search', component: SearchPageComponent},
+  { path: 'user/view', component: UserPageComponent}
 ];
 
 @NgModule({

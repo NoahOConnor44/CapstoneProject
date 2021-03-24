@@ -30,11 +30,11 @@
         </div>
     </div>
 </div>
-<div>
-    <!--connects to cart-item.component.html view-->
+<div class="container">
+    <!--connects to game-info.component.html view-->
     <div class = "row"
-      *ngFor="let games of games"
-      app-game-info-page
-      [games]="game"
-    ></div>
+      *ngFor="let game of games">
+      <app-game-card [games]="game"></app-game-card>
+    </div>
 </div>
+

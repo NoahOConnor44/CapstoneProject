@@ -33,31 +33,9 @@
 
   <!-- Game Recommendations Row -->
   <h3 class="my-4">Game recommendations</h3>
-
-  <div class="row">
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-            <h3> {{game.recommendations[0].title }} </h3>
-               <img class="img-fluid" src="../../../assets/{{game.recommendations[0].title}}.jpg" alt="">
-          </a>
+    <div *ngFor="let game of game.recommendations">
+      <app-game-card [games]="game"></app-game-card>
     </div>
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-            <h3> {{game.recommendations[1].title }} </h3>
-               <img class="img-fluid" src="../../../assets/{{game.recommendations[1].title}}.jpg" alt="">
-          </a>
-    </div>
-
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-            <h3> {{game.recommendations[2].title }} </h3>
-            <img class="img-fluid" src="../../../assets/{{game.recommendations[2].title}}.jpg" alt="">
-          </a>
-    </div>
-
-  </div>
   <!-- End Game Recommendations Row -->
 
 </div>

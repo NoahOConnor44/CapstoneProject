@@ -8,6 +8,9 @@ import { GameService } from './services/game.service';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { GameCardComponent } from './modules/game-card/game-card.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
+import { ReviewsService } from './services/reviews.service';
 
 @NgModule({
   declarations: [
@@ -15,14 +18,16 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     GameInfoPageComponent,
     HomePageComponent,
     LoginPageComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    GameCardComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [GameService],
+  providers: [GameService, ReviewsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

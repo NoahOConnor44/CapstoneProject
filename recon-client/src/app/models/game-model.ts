@@ -6,6 +6,7 @@ export class GameModel {
     public consoleType: string;
     public negativeRating: number;
     public positiveRating: number;
+    public link: string;
     //public reviews: ReviewModel[] = [];
     public recommendations: GameModel[];
 }

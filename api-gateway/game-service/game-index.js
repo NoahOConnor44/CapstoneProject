@@ -85,6 +85,7 @@ app.post("/search", async (req, res) => {
 
   //set variable for gameTitle sent in from frontend
   const gameTitle = req.body.gameTitle;
+  
   //set game variable to hold returned game information
   let game;
 

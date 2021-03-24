@@ -22,6 +22,7 @@ export class GameInfoPageComponent implements OnInit {
     consoleType: "",
     negativeRating: 0,
     positiveRating: 0,
+    link: "",
     recommendations: []
   }
 
@@ -34,15 +35,26 @@ export class GameInfoPageComponent implements OnInit {
 
   // Method used to display game info on game page
   displayGame() {
-    //TO DO: How to retrieve game title 
-    let gameTitle: String = "Subnautica";
 
-    //send game title to angular game.service.ts for routing
-    this.Game.getGame(gameTitle).subscribe((data) => {
+    // Retrieve game title information from the URL
+    this.game.title = this.activatedRoute.snapshot.paramMap.get("game");
+
+    // Handle game title colons by removing them to load image titles
+    this.game.title = this.game.title.replace(/:/g,'');
+
+    // Send game title to angular game.service.ts for routing
+    this.Game.getGame(this.game.title).subscribe((data) => {
       if (data.success) {
         console.log(data);
         this.game = data.game;
+        this.game.recommendations = data.gameRecommendations;
 
+        // Set title without colon for image retrieval
+        this.game.recommendations.forEach(game => {
+          game.title = game.title.replace(/:/g,'');
+        });
+
+        // Branched statements execute depending on associated game platform type
         if(this.game.consoleType === "123"){
           this.game.consoleType = "All platforms";
         }
@@ -58,7 +70,6 @@ export class GameInfoPageComponent implements OnInit {
         else if(this.game.consoleType === "3"){
           this.game.consoleType = "PC";
         }
-        this.game.recommendations = data.gameRecommendations;
 
       } else {
         alert(
@@ -67,13 +78,8 @@ export class GameInfoPageComponent implements OnInit {
       }
     });
   }
-     
+  
   ngOnInit(): void {
-
-    if (this.activatedRoute.snapshot.url.length > 1) {
-      const gameToDisplay = this.activatedRoute.snapshot.paramMap.get("game");
-    }
     this.displayGame();
   }
-
 }
