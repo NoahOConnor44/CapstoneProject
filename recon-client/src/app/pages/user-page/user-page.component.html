@@ -1,83 +1,68 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<div class="dashboard">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <ul class="dashboard-tabs">
-                <li class="active">
-                    <a href="#profile" class="btn" aria-controls="profile" role="tab" data-toggle="tab">
-                        <span class="glyphicon glyphicon-user"></span>
-                        <h4>Profile</h4>
-                    </a>
-                </li>
-                <li>
-                    <a href="#settings" class="btn" aria-controls="settings" role="tab" data-toggle="tab">
-                        <span class="glyphicon glyphicon-cog"></span>
-                        <h4>Settings</h4>
-                    </a>
-                </li>
-                <li>
-                    <a href="#help" class="btn" aria-controls="help" role="tab" data-toggle="tab">
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                        <h4>Help</h4>
-                    </a>
-                </li>
-            </ul>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="demo-title">
+                <h1 class="display-1">Username</h1>
+            </div>
         </div>
-        <div class="tab-content col-md-12">
-            <div role="tabpanel" class="tab-pane profile-pane active" id="profile">
-                <div>
-                    <div>
-                        <div class="header">
-                            <h4>Profile Information</h4>   
-                        </div>
-                        <div class="content">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <button class="btn btn-lg btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span></button>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Message</label>
-                                        <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">Send Message</button>
-                                </div>
-                            </div>
-                        </div>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="display-1">Game Reviews</h1>
+            </div>
+            <div class="row grid-divider">
+                <div class="col-sm-4">
+                    <div class="col-padding">
+                        <h3>Column 1</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima expedita incidunt rerum.</p>
                     </div>
-                    <div>
-                        <div class="header">
-                            <h4>Game Reviews</h4>   
-                        </div>
-                        <div class="content">
-                            <div class="row">
-                                <h3 class="col-sm-10 col-sm-offset-1 title">Dwolla</h3>
-                                <article class="col-sm-10 col-sm-offset-1">
-                                    <p>Esse nostro pertinacia nam te. Erant omnes semper ex has, qui at illum dolor vivendum. Utinam phaedrum expetendis mel ex, purto maluisset et est. Assum labores mea te, ut patrioque liberavisse nec, nec ad inani simul.</p>
-                                    <p>In eos insolens partiendo rationibus, te nostrud accusam sapientem quo. Sit semper vivendo corpora in, facilis recusabo has id. Ut vis molestiae intellegebat. An eam etiam essent. Sit in saepe dicam.</p>
-                                </article>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col-padding">
+                        <h3>Column 2</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate placeat suscipit maxime tenetur officiis asperiores quae molestias fugiat praesentium dolorum.</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col-padding">
+                        <h3>Column 3</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab veniam aperiam numquam cupiditate maiores repudiandae ea dicta, sunt rerum corporis. Ab veniam aperiam numquam cupiditate maiores repudiandae ea dicta, sunt rerum corporis. Ab veniam aperiam numquam cupiditate maiores repudiandae ea dicta.</p>
                     </div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="statistics">
-            Statistics
+        </div>
+        <div class="container">
+            <div class="demo-title">
+                <h1 class="display-1">Wishlist</h1>
             </div>
-            <div role="tabpanel" class="tab-pane" id="donate">
-            Donate
-            </div>
-            <div role="tabpanel" class="tab-pane" id="settings">
-            Settings
-            </div>
-            <div role="tabpanel" class="tab-pane help-pane" id="help">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 image-grid-item">
+                    <div style="background-image: url(../assets/Cyberpunk.jpg);" class="entry-cover image-grid-cover has-image">
+                        <a href="#" class="image-grid-clickbox"></a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 image-grid-item">
+                    <div style="background-image: url(../assets/Doom.jpg);" class="entry-cover image-grid-cover has-image">
+                        <a href="#" class="image-grid-clickbox"></a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 image-grid-item">
+                    <div style="background-image: url(../assets/Prey.jpg);" class="entry-cover image-grid-cover has-image">
+                        <a href="#" class="image-grid-clickbox"></a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </body>
+</html>
