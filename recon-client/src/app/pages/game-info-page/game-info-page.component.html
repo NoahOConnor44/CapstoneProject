@@ -13,8 +13,11 @@
       <img class="img-fluid" src="../../../assets/{{game.title}}.jpg" alt="">
     </div>
 
+
+
     <!-- Game Page Column  -->
     <div class="col-md-4">
+      <button class="button button1" onclick="location.href='../../login'">Add to Wishlist</button>
       <h3 class="my-3">Description </h3>
       <p class="card-text"> {{ game.description }}</p>
       <h3 class="my-3">Game information</h3>
@@ -26,6 +29,10 @@
         <li class="card-negRating">Negative Rating: {{ game.negativeRating }} </li>
         <li class="card-posRating">Positive Rating: {{ game.positiveRating }} </li>
       </ul>
+
+      <br>
+      <button class="button button2" onclick="location.href='../../login'">Leave a Review</button>
+
     </div>
 
   </div>
