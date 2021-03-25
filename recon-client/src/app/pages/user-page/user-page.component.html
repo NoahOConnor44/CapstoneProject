@@ -1,0 +1,83 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="dashboard">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <ul class="dashboard-tabs">
+                <li class="active">
+                    <a href="#profile" class="btn" aria-controls="profile" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <h4>Profile</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="#settings" class="btn" aria-controls="settings" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        <h4>Settings</h4>
+                    </a>
+                </li>
+                <li>
+                    <a href="#help" class="btn" aria-controls="help" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                        <h4>Help</h4>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content col-md-12">
+            <div role="tabpanel" class="tab-pane profile-pane active" id="profile">
+                <div>
+                    <div>
+                        <div class="header">
+                            <h4>Profile Information</h4>   
+                        </div>
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <button class="btn btn-lg btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span></button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Message</label>
+                                        <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary pull-right" id="btnContactUs">Send Message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="header">
+                            <h4>Game Reviews</h4>   
+                        </div>
+                        <div class="content">
+                            <div class="row">
+                                <h3 class="col-sm-10 col-sm-offset-1 title">Dwolla</h3>
+                                <article class="col-sm-10 col-sm-offset-1">
+                                    <p>Esse nostro pertinacia nam te. Erant omnes semper ex has, qui at illum dolor vivendum. Utinam phaedrum expetendis mel ex, purto maluisset et est. Assum labores mea te, ut patrioque liberavisse nec, nec ad inani simul.</p>
+                                    <p>In eos insolens partiendo rationibus, te nostrud accusam sapientem quo. Sit semper vivendo corpora in, facilis recusabo has id. Ut vis molestiae intellegebat. An eam etiam essent. Sit in saepe dicam.</p>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="statistics">
+            Statistics
+            </div>
+            <div role="tabpanel" class="tab-pane" id="donate">
+            Donate
+            </div>
+            <div role="tabpanel" class="tab-pane" id="settings">
+            Settings
+            </div>
+            <div role="tabpanel" class="tab-pane help-pane" id="help">
+            </div>
+        </div>
+    </div>
+</div>
