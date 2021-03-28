@@ -8,14 +8,12 @@ import { GameModel } from "src/app/models/game-model";
   styleUrls: ['./game-card.component.scss']
 })
 export class GameCardComponent implements OnInit {
+
   @Input() public games: GameModel;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    if(this.games.title === "Subnautica") {
-      this.games.link = "game/load?game=Subnautica";
-    }
+    this.games.link = "/game/load/" + this.games.title;
   }
-
 }
