@@ -2,7 +2,7 @@
 <div class="container">
 
   <!-- Game Heading -->
-  <h1 class="my-4">The Game.....
+  <h1 class="my-4">{{game.title}}
   </h1>
 
   <!-- Game Page Item Row -->
@@ -38,12 +38,49 @@
   </div>
   <!-- End Game Page Item Row -->
 
-  <!-- Game Recommendations Row -->
+  <!-- Game Recommendations Row, Limited to 3 for more diversity.  -->
   <h3 class="my-4">Game recommendations</h3>
-    <div *ngFor="let game of game.recommendations">
-      <app-game-card [games]="game"></app-game-card>
+  <div class="row">
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="https://localhost:4200/game/load/{{game.recommendations[0].title}}">
+            <h3> {{game.recommendations[0].title }} </h3>
+               <img class="img-fluid" src="../../../assets/{{game.recommendations[0].title}}.jpg" alt="">
+          </a>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="https://localhost:4200/game/load/{{game.recommendations[1].title}}">
+            <h3> {{game.recommendations[1].title }} </h3>
+               <img class="img-fluid" src="../../../assets/{{game.recommendations[1].title}}.jpg" alt="">
+          </a>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="https://localhost:4200/game/load/{{game.recommendations[2].title}}">
+            <h3> {{game.recommendations[2].title }} </h3>
+            <img class="img-fluid" src="../../../assets/{{game.recommendations[2].title}}.jpg" alt="">
+          </a>
     </div>
   <!-- End Game Recommendations Row -->
 
+  <!-- Start Game Review Row -->
+  
+  <div class="row">
+<!-- <h3 class="row my-4 display:block">Game Reviews</h3> Add Game Review Header that makes new line afterwards -->
+    <div class="col-md-3 col-sm-6 mb-4">
+      <h5><br/>{{review[0].user }}</h5>
+      <p> {{review[0].reviewText }} </p>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <h5><br/>{{review[1].user }}</h5>
+      <p>{{review[1].reviewText }} </p>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <h5><br/>{{review[2].user }}</h5>
+      <p> {{review[2].reviewText }} </p>
+    </div>
+    <!-- End Game Review Row -->
+
 </div>
+
 <!-- End Container -->

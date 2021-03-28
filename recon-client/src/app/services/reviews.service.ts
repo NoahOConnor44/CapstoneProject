@@ -16,4 +16,11 @@ export class ReviewsService {
       gameTitle,
     });
   }
+
+  // Retrieve reviews for a certain gametitle.
+  public getReview(gameTitle){
+    return this.http.post<any>("/api/review/load", {
+      gameTitle,
+    });
+  }
 }

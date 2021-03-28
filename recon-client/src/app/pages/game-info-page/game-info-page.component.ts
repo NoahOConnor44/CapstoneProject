@@ -3,7 +3,8 @@ import { ActivatedRoute } from "@angular/router"
 import { Router } from "@angular/router";
 import { GameService } from "src/app/services/game.service";
 import { GameModel } from "src/app/models/game-model";
-
+import { ReviewModel } from "src/app/models/review-model";
+import { ReviewsService } from 'src/app/services/reviews.service';
 
 @Component({
   selector: 'app-game-info-page',
@@ -26,11 +27,18 @@ export class GameInfoPageComponent implements OnInit {
     recommendations: []
   }
 
+  public review: ReviewModel = {
+    title: "",
+    reviewText: "",
+    user: ""
+  }
+
   // Create variables for using necessary imports
   constructor(  
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private Game: GameService, 
+    private Review: ReviewsService
   ) {}
 
   // Method used to display game info on game page
@@ -78,8 +86,27 @@ export class GameInfoPageComponent implements OnInit {
       }
     });
   }
+
+  displayReviews()
+  {
+    //TO DO: How to retrieve game title 
+    let gameTitle: String = "Subnautica";
+
+    //send game title to angular game.service.ts for routing
+    this.Review.getReview(gameTitle).subscribe((data) => {
+      if (data.success) {
+        console.log(data);
+        this.review = data.reviews;
+      } else {
+        alert(
+          "The game review could not be retrieved from the database."
+        );
+      }
+    });
+  }
   
   ngOnInit(): void {
     this.displayGame();
+    this.displayReviews();
   }
 }
