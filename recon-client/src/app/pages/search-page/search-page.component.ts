@@ -29,13 +29,12 @@ export class SearchPageComponent implements OnInit {
     console.log(searchTerm);
     this.Game.search(searchTerm).subscribe((data) => {
       if(data.success) {
-        alert("Found matching search games from database.");
         console.log(data.game);
         
         this.games = data.game;
 
         } else {
-          alert("Search term not matched in database.");
+          alert("Couldn't find matching game in the database. Try a new game!");
         }
       });
   }

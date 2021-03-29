@@ -11,6 +11,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { GameCardComponent } from './modules/game-card/game-card.component';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { ReviewsService } from './services/reviews.service';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,15 @@ import { ReviewsService } from './services/reviews.service';
     LoginPageComponent,
     SearchPageComponent,
     GameCardComponent,
-    UserPageComponent
+    UserPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,  // Needed for login page
+    ReactiveFormsModule // Needed for login page
   ],
   providers: [GameService, ReviewsService],
   bootstrap: [AppComponent]

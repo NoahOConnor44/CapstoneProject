@@ -1,0 +1,1 @@
+The user service handles returning user information as well as creating a user in the database.

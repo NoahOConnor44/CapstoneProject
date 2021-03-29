@@ -90,10 +90,15 @@ export class GameInfoPageComponent implements OnInit {
   displayReviews()
   {
     //TO DO: How to retrieve game title 
-    let gameTitle: String = "Subnautica";
+    this.game.title = this.activatedRoute.snapshot.paramMap.get("game");
+
+    // Handle game title colons by removing them to load image titles
+    this.game.title = this.game.title.replace(/:/g,'');
+
+    let title = this.game.title;
 
     //send game title to angular game.service.ts for routing
-    this.Review.getReview(gameTitle).subscribe((data) => {
+    this.Review.getReview(title).subscribe((data) => {
       if (data.success) {
         console.log(data);
         this.review = data.reviews;

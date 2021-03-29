@@ -7,11 +7,11 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  selector: 'register-login-page',
+  templateUrl: './register-page.component.html',
+  styleUrls: ['./register-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class RegisterPageComponent implements OnInit {
 
   public user: UserModel = {
     email: "",
@@ -29,21 +29,20 @@ export class LoginPageComponent implements OnInit {
   ) { }
 
   // npm install jose. most secure jwt library according to jwt.io
-  login(): void 
+  register(): void 
   {
-    this.http.post('https://localhost:4200/api/user/login', this.form.getRawValue())
+    this.http.post('https://localhost:4200/api/user/register', this.form.getRawValue())
     .subscribe(res => {
       if(res)
       {
         let response = JSON.stringify(res);
         if(response.includes("false"))
         {
-          alert("Wrong credentials provided. Please try again")
+          alert("Please enter a valid email and a password with 8 characters, 1 lowercase, 1 uppercase, and at least one number.")
         }
         else
         {
-          this.router.navigate(['']); // send them to the home page after login
-          // we will deal with token here.
+          this.router.navigate(['/login']); // send them to the login page after registering
         }
       }
     });

@@ -6,9 +6,11 @@ const https = require('https');
 const fs = require('fs');
 let gameService = require("../game-service/game-index");
 let reviewsService = require("../reviews-service/reviews-index");
+let userService = require("../user-service/user-service");
 
 app.use('/game', gameService);
 app.use('/review', reviewsService);
+app.use('/user',userService);
 
 //create HTTPS server to listen on the port for the API Gateway
 const httpsServer = https.createServer({
