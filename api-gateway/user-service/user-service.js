@@ -9,6 +9,7 @@ const { Mongoose } = require("mongoose");
 const mongoose = require("mongoose");
 const https = require('https');
 const fs = require('fs');
+const bcrypt = require("bcryptjs"); // to be used for security
 let checkCredentials = require("./validateCredentials");
 
 //setup mongoDB connection
@@ -37,19 +38,15 @@ app.use(cookieParser());
 mongoose.Promise = Promise;
 
 app.post("/register", async (req, res) => {
-
+  const salt = await bcrypt.genSalt(10);
+  const passedEmail = req.body.email;
   console.log("Request to register a user received.");
 
-  //save information passed in from the front end.
-  const passedEmail = req.body.email;
-  const passedPassword = req.body.password;
-
-  // Check to make sure its legal before accessing the database.
-  if (checkCredentials.validateCredentials(passedEmail,passedPassword))
+  // Check to make the raw passed data is legal before trying to access the database and save the hashed version.
+  if (checkCredentials.validateCredentials(passedEmail,req.body.password))
   {
     let user = await User.find({
-      email: passedEmail, 
-      password: passedPassword
+      email: passedEmail
     });
 
     // User already exists. Dont tell them front end that though. Its insecure.
@@ -63,7 +60,8 @@ app.post("/register", async (req, res) => {
     else
     {
       let email = passedEmail;
-      let password = passedPassword;
+      const hashPassword = await bcrypt.hash(req.body.password, salt);
+      let password = hashPassword;
       const newUser = new User({
         email,
         password
@@ -99,26 +97,33 @@ app.post("/login", async (req, res) => {
   // Check to make sure its legal before accessing the database.
   if(checkCredentials.validateCredentials(passedEmail,passedPassword))
   {
-    let user = await User.find({
-      email: passedEmail, 
-      password: passedPassword
-    });
+    const user = await User.findOne({ email: passedEmail })
 
-    if(user.length != 0)
+    if(!user) {
+        return res.json({
+          success: "false",
+          message: "NO USER FOUND!",
+        })
+    }
+
+    if (!await bcrypt.compare(passedPassword, user.password))
     {
-      res.json({
+      return res.json({
+      success: "false",
+      message: "NO USER FOUND!",
+      })
+    }
+    else
+    {
+      return res.json({
         success: "true",
         message: "Successfully found the user!",
       });
     }
-    else
-    {
-      res.json({
-        success: "false",
-        message: "USER NOT CREATED!",
-      })
-    }
+
   }
 })
+
+app.use(express.json); // needed to hash and salt password.
 
 module.exports = app;
