@@ -10,14 +10,14 @@ export class UserService {
     private http: HttpClient,
   ) { }
 
-  // Method for loading game info by sending game title to api
+  // Method for registering a user by sending in userInfo
   register(userInfo) {
     return this.http.post<any>("/api/user/register", {
       userInfo,
     });
   }
 
-  // Method for loading game info by sending game title to api
+  // Method for logging in by sending userInfo
   login(userInfo) {
     return this.http.post<any>("/api/user/login", {
       userInfo,

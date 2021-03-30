@@ -54,6 +54,7 @@ app.post("/register", async (req, res) => {
     // User already exists. Dont tell the front end that though. Its insecure.
     if(user.length != 0)
     {
+      console.log("User already exist in database.");
       res.json({
         success: "false",
         message: "USER NOT CREATED!",
@@ -73,6 +74,7 @@ app.post("/register", async (req, res) => {
   
       if(saveUser)
       {
+        console.log("User created.");
         res.json({
           success: "true",
           message: "Successfully created a new user!",
@@ -80,12 +82,20 @@ app.post("/register", async (req, res) => {
       }
       else
       {
+        console.log("User could not be created.");
         res.json({
           success: "false",
           message: "USER NOT CREATED!",
         })
       }
     }
+  }
+  else
+  {
+    return res.json({
+      success: "false",
+      message: "Credentials not valid!",
+      })
   }
 })
 
@@ -103,6 +113,7 @@ app.post("/login", async (req, res) => {
     const user = await User.findOne({ email: passedEmail })
 
     // No user found with the email provided.
+    console.log("User not found with email provided.");
     if(!user) {
         return res.json({
           success: "false",
@@ -113,6 +124,7 @@ app.post("/login", async (req, res) => {
     // User found but the password doesnt match. Do not tell the front end that specifically though.
     if (!await bcrypt.compare(passedPassword, user.password))
     {
+      console.log("User found but wrong credentials provided.");
       return res.json({
       success: "false",
       message: "NO USER FOUND!",
@@ -141,11 +153,19 @@ app.post("/login", async (req, res) => {
         secure: true
       });
 
+      console.log("User logged in!");
       res.json({
         success: "True",
         message: "Logged in"
       })
     }
+  }
+  else
+  {
+    return res.json({
+      success: "false",
+      message: "Credentials not valid!",
+      })
   }
 })
 

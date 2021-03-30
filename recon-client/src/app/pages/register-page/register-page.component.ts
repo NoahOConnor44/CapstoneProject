@@ -34,8 +34,8 @@ export class RegisterPageComponent implements OnInit {
     .subscribe(res => {
       if(res)
       {
-        let response = JSON.stringify(res);
-        if(response.includes("false"))
+        let response = JSON.parse(JSON.stringify(res));
+        if(JSON.stringify(res).includes("false"))
         {
           // If the result of the request has success: false, then they couldn't register. Notify the user.
           alert("Please enter a valid email and a password with 8 characters, 1 lowercase, 1 uppercase, and at least one number.")

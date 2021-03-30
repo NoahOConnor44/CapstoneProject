@@ -27,7 +27,8 @@ function validatePassword(password)
 
 function validateCredentials(email, password) 
 {
-  return (validateEmail(email) && validatePassword(password));
+    console.log("Checking credentials passed in");
+    return (validateEmail(email) && validatePassword(password));
 }
 
 module.exports = { validateCredentials };
