@@ -28,21 +28,21 @@ export class RegisterPageComponent implements OnInit {
     private http: HttpClient,
   ) { }
 
-  // npm install jose. most secure jwt library according to jwt.io
   register(): void 
   {
-    this.http.post('https://localhost:4200/api/user/register', this.form.getRawValue())
+    this.http.post('https://localhost:4000/user/register', this.form.getRawValue())
     .subscribe(res => {
       if(res)
       {
         let response = JSON.stringify(res);
         if(response.includes("false"))
         {
+          // If the result of the request has success: false, then they couldn't register. Notify the user.
           alert("Please enter a valid email and a password with 8 characters, 1 lowercase, 1 uppercase, and at least one number.")
         }
         else
         {
-          this.router.navigate(['/login']); // send them to the login page after registering
+          this.router.navigate(['/login']); // send them to the login page after registering to generate themselves a cookie to user secured functions.
         }
       }
     });

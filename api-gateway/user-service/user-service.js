@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const https = require('https');
 const fs = require('fs');
 const bcrypt = require("bcryptjs"); // to be used for security
+const jwt = require("jsonwebtoken");
 let checkCredentials = require("./validateCredentials");
 
 //setup mongoDB connection
@@ -37,8 +38,9 @@ app.use(cookieParser());
 
 mongoose.Promise = Promise;
 
+// Creates a new user if they dont already exist. Salts and hashes the password.
 app.post("/register", async (req, res) => {
-  const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(10); // generate a salt for the password.
   const passedEmail = req.body.email;
   console.log("Request to register a user received.");
 
@@ -49,7 +51,7 @@ app.post("/register", async (req, res) => {
       email: passedEmail
     });
 
-    // User already exists. Dont tell them front end that though. Its insecure.
+    // User already exists. Dont tell the front end that though. Its insecure.
     if(user.length != 0)
     {
       res.json({
@@ -87,6 +89,7 @@ app.post("/register", async (req, res) => {
   }
 })
 
+// Logs in the user and generates a token and secure cookie.
 app.post("/login", async (req, res) => {
 
   console.log("Request to login received.");
@@ -99,6 +102,7 @@ app.post("/login", async (req, res) => {
   {
     const user = await User.findOne({ email: passedEmail })
 
+    // No user found with the email provided.
     if(!user) {
         return res.json({
           success: "false",
@@ -106,6 +110,7 @@ app.post("/login", async (req, res) => {
         })
     }
 
+    // User found but the password doesnt match. Do not tell the front end that specifically though.
     if (!await bcrypt.compare(passedPassword, user.password))
     {
       return res.json({
@@ -113,16 +118,72 @@ app.post("/login", async (req, res) => {
       message: "NO USER FOUND!",
       })
     }
+    // If you have a successful login, generate a token & cookie we will use to make calls to protected routes such as submitting a review, accessing user profile information, etc.
     else
     {
-      return res.json({
-        success: "true",
-        message: "Successfully found the user!",
+      //             payload = just the userID   secret key    set the token to expire in 1 day.
+      const token = jwt.sign({_id: user.id}, process.env.JWTSECRETKEY, {
+        expiresIn: '24h'
       });
-    }
 
+      /*
+      res.header('auth-token', token).send({
+        message: "success",
+        token
+      });
+      */
+      
+      // httpOnly stops script injection attacks since the front end cant access the cookie, only the backend. Since the cookie is stored on the browser. 
+      // Its sent with every request so we can check to see if a jwt token exist in the cookie or if its  empty. If so they can write reviews etc.
+      res.cookie('jwt', token, {
+        httpOnly: true, // allows only the front end to access the cookie. Most secure practice.
+        maxAge: 86400000, // cookie exist for 1 day, written in ms.
+        secure: true
+      });
+
+      res.json({
+        success: "True",
+        message: "Logged in"
+      })
+    }
   }
 })
+
+app.get('/user', async (req, res) =>
+{
+  try 
+  {
+    const cookie = req.cookies['jwt'];
+    const decoded = jwt.verify(cookie, process.env.JWTSECRETKEY);
+    if(!decoded)
+    {
+      // not authenticated
+      return res.status(404).send({
+        message: "Unauthenticated"
+      })
+    }
+    const user = await User.findOne({_id: decoded._id})
+    const {password, ...data} = await user.toJSON();
+    res.json(data); // returns the authenticated user from the database without the password.
+  }
+  catch (e)
+  {
+    // not authenticated
+    return res.status(404).send({
+    message: "Unauthenticated"
+    })
+  }
+})
+
+/*
+// logout and reset the cookie for the user.
+app.post('/logout', verifyToken, async (req, res) => {
+  res.cookie('jwt', { maxAge: 0}) // set the cookie to expire
+  res.json({
+    message: "successfully logged out"
+  })
+})
+*/
 
 app.use(express.json); // needed to hash and salt password.
 

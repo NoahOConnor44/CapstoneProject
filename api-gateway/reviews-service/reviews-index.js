@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const Review = require("../models/review");
 const { Mongoose } = require("mongoose");
 const mongoose = require("mongoose");
+const verifyToken = require("../verifyToken"); // Used to only allow verified users to create a review.
 
 //setup mongoDB connection
 const connectionString = process.env.DB_CONNECTION;
@@ -63,13 +64,22 @@ app.post("/load", async (req, res) => {
   })
 })
 
-//addReview receiving review information from frontend and saving to reviews database       +todo: pull out title,reviewText,user from the request.
+//addReview receiving review information from frontend and saving to reviews database
+// should add verifyToken middleware once we update it with the new approach.
 app.post("/add", async (req, res) => {
 
     console.log("I made it here!");
+    let title = req.body.title;
+    let reviewText = req.body.reviewText;
 
-    title = "Stellaris";
-    reviewText = "I love this sci-fi game. It is so immersive!";
+    //title = "Stellaris";
+    //reviewText = "I love this sci-fi game. It is so immersive!";
+
+    /*
+    once we verify the cookie is valid for a users token, verifyToken middleware, we need to access the database with their ID to check if they 
+    want to have public reviews and to determine what the username should be.
+    */
+
     user = "JoeJoe234";
 
     const review = new Review({

@@ -28,22 +28,24 @@ export class LoginPageComponent implements OnInit {
     private http: HttpClient,
   ) { }
 
-  // npm install jose. most secure jwt library according to jwt.io
   login(): void 
   {
-    this.http.post('https://localhost:4200/api/user/login', this.form.getRawValue())
+    this.http.post('https://localhost:4000/user/login', this.form.getRawValue(), {
+      withCredentials: true // for front end cookie use.
+    })
     .subscribe(res => {
       if(res)
       {
-        let response = JSON.stringify(res);
-        if(response.includes("false"))
+        let response = JSON.parse(JSON.stringify(res));
+        if(JSON.stringify(res).includes("false"))
         {
-          alert("Wrong credentials provided. Please try again")
+          // If the result of the request has success: false, then they didnt login correctly. Notify the user.
+          alert("Wrong credentials provided. Please try again");
         }
         else
         {
-          this.router.navigate(['']); // send them to the home page after login
-          // we will deal with token here.
+          // Succesfully logged in. The cookie was created. Navigate them to the homepage to use the website.
+          this.router.navigate(['']);
         }
       }
     });
