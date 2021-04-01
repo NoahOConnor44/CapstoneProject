@@ -7,11 +7,11 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  selector: 'register-login-page',
+  templateUrl: './register-page.component.html',
+  styleUrls: ['./register-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class RegisterPageComponent implements OnInit {
 
   public user: UserModel = {
     email: "",
@@ -28,24 +28,21 @@ export class LoginPageComponent implements OnInit {
     private http: HttpClient,
   ) { }
 
-  login(): void 
+  register(): void 
   {
-    this.http.post('https://localhost:4000/user/login', this.form.getRawValue(), {
-      withCredentials: true // for front end cookie use.
-    })
+    this.http.post('https://localhost:4000/user/register', this.form.getRawValue())
     .subscribe(res => {
       if(res)
       {
         let response = JSON.parse(JSON.stringify(res));
         if(JSON.stringify(res).includes("false"))
         {
-          // If the result of the request has success: false, then they didnt login correctly. Notify the user.
-          alert("Wrong credentials provided. Please try again");
+          // If the result of the request has success: false, then they couldn't register. Notify the user.
+          alert("Please enter a valid email and a password with 8 characters, 1 lowercase, 1 uppercase, and at least one number.")
         }
         else
         {
-          // Succesfully logged in. The cookie was created. Navigate them to the homepage to use the website.
-          this.router.navigate(['']);
+          this.router.navigate(['/login']); // send them to the login page after registering to generate themselves a cookie to user secured functions.
         }
       }
     });

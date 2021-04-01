@@ -9,7 +9,7 @@
   }
   
   .bg-image {
-    background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200');
+    background-image: url('../../../assets/Web-Frontpage-Mockup-2.png');
     background-size: cover;
     background-position: center;
   }
@@ -82,8 +82,8 @@
   .form-label-group input:not(:placeholder-shown)~label {
     padding-top: calc(var(--input-padding-y) / 3);
     padding-bottom: calc(var(--input-padding-y) / 3);
-    font-size: 12px;
-    color: #777;
+    font-size: 0px; // Fixes issue where when you type the preloaded text goes over it.
+    color: rgb(255, 255, 255); // Fixes issue where when you type the preloaded text goes over it. 
   }
   
   /* Fallback for Edge

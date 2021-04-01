@@ -6,9 +6,9 @@
           <div class="container">
             <div class="row">
               <div class="col-md-9 col-lg-8 mx-auto">
-                <h3 class="login-heading mb-4">Welcome back! Please log in!</h3>
+                <h3 class="login-heading mb-4">Registration!</h3>
                 <!-- Login form  -->
-                <form [formGroup]="form" (submit) = "login()">
+                <form [formGroup]="form" (submit) = "register()">
                   <div class="form-label-group">
                     <input formControlName = "email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                     <label for="inputEmail">Email address</label>
@@ -19,10 +19,7 @@
                     <label for="inputPassword">Password</label>
                   </div>
   
-                  <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
-                  <div class="text-center">
-                    <a class="small" href="https://www.youtube.com/watch?v=wnedkVrgFF0">Forgot password?</a>
-                  </div>
+                  <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Register</button>
                 </form>
                 <br>
                 <br>
