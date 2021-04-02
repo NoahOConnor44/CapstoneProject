@@ -7,7 +7,9 @@ const cookieParser = require("cookie-parser");
 const Review = require("../models/review");
 const { Mongoose } = require("mongoose");
 const mongoose = require("mongoose");
-const verifyToken = require("../verifyToken"); // Used to only allow verified users to create a review.
+const verifyUserCookie = require("../verifyToken"); // Used to only allow verified users to create a review.
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 //setup mongoDB connection
 const connectionString = process.env.DB_CONNECTION;
@@ -66,11 +68,16 @@ app.post("/load", async (req, res) => {
 
 //addReview receiving review information from frontend and saving to reviews database
 // should add verifyToken middleware once we update it with the new approach.
-app.post("/add", async (req, res) => {
+app.post("/add", verifyUserCookie, async (req, res) => {
 
-    console.log("I made it here!");
+    console.log("Made it to the review service.");
     let title = req.body.title;
     let reviewText = req.body.reviewText;
+
+    const token = req.cookies['jwt'];
+    const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
+    let userObj = await User.findOne({_id: decoded._id})
+    let user = userObj.email;
 
     //title = "Stellaris";
     //reviewText = "I love this sci-fi game. It is so immersive!";
@@ -80,7 +87,6 @@ app.post("/add", async (req, res) => {
     want to have public reviews and to determine what the username should be.
     */
 
-    user = "JoeJoe234";
 
     const review = new Review({
         title,
@@ -91,12 +97,13 @@ app.post("/add", async (req, res) => {
     const result = await review.save();
 
     if(result) {
-        res.json({
+        return res.json({
             success: true,
             message: "Review added!",
          });
-     } else {
-         res.json({
+     } 
+     else {
+       return res.json({
              success: false,
              message: "Review not added!",
          });

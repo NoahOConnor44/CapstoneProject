@@ -1,27 +1,36 @@
-/*
-This will likely have to be changed a bit. I was trying multiple implementations and this is left over. Still think it will be useful
-with checking the cookie passed from the user on each request when accessing protected routes just needs some tweaking since
-I am no longer sending an auth-token in the header of each request.
-*/
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const User = require("./models/user");
 
-// middleware function for routes we want to be protected.
-function verifyToken(req, res, next) {
-    const token = req.header('auth-token');
-  
-    if(!token) 
+async function verifyUserCookie(req, res, next) {
+  try 
+  {
+    const cookie = req.cookies['jwt'];
+    const decoded = jwt.verify(cookie, process.env.JWTSECRETKEY);
+
+    if(!decoded)
     {
-      return res.status(401).send('Access Denied')
+      // User not authenticated
+      return res.status(404).send({
+        message: "User not authenticated.",
+        error: "Could not decode cookie"
+      })
     }
-    try 
-    {
-      const verified = jwt.verify(token, process.env.JWTSECRETKEY);
-      req.user = verified;
-      next(); // go to the next middleware
-    }
-    catch (err)
-    {
-      res.status(400).send('Invalid Token');
-    }
+    // User token passed authentication
+      console.log("JWT verified successfully checking for a user with the provided ID");
+      const user = await User.findOne({_id: decoded._id})
+      const {password, ...data} = await user.toJSON(); // removes the users password from the payload.
+      // res.json(data); // Do not return data yet, the backend service will. Just add the data to the response so it can be accessed by the service.
+
+      next(); // lets the next middleware function or backend service run
+  }
+  catch (e)
+  {
+    // User token failed verification
+    return res.status(404).send({
+    message: "User not authenticated."
+    })
+  }
 }
 
-module.exports = verifyToken;
+module.exports = verifyUserCookie;
