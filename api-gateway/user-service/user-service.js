@@ -25,6 +25,7 @@ const connector = mongoose.connect(connectionString, {
 
 // Sets up a proxy server to listen for the api-gateway requests so it can handled here in the service
 var http = require('http');
+const { db } = require("../models/user");
 server = http.createServer(function (req, res) {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.write('Proxy Request was Successful!' + '\n' + JSON.stringify(req.headers, true, 2));
@@ -45,14 +46,20 @@ app.post("/register", async (req, res) => {
   console.log("Request to register a user received.");
 
   // Check to make the raw passed data is legal before trying to access the database and save the hashed version.
-  if (checkCredentials.validateCredentials(passedEmail,req.body.password))
+  if (checkCredentials.validateCredentials(passedEmail,req.body.password, req.body.username))
   {
+    console.log(req.body);
+    console.log("\t\t",req.body.email, req.body.password, req.body.username, req.body.privateinfo);
     let user = await User.find({
       email: passedEmail
     });
 
-    // User already exists. Dont tell the front end that though. Its insecure.
-    if(user.length != 0)
+    let user2 = await User.find({
+      username: req.body.username
+    });
+
+    // User already exists with the given email or username. Dont tell the front end that explicitly though. Its insecure.
+    if(user.length != 0 || user2.length != 0)
     {
       console.log("User already exist in database.");
       res.json({
@@ -64,10 +71,14 @@ app.post("/register", async (req, res) => {
     {
       let email = passedEmail;
       const hashPassword = await bcrypt.hash(req.body.password, salt);
+      let username = req.body.username;
+      let private = req.body.privateinfo;
       let password = hashPassword;
       const newUser = new User({
         email,
-        password
+        password,
+        username,
+        private
       })
   
       const saveUser = await newUser.save();
@@ -108,7 +119,7 @@ app.post("/login", async (req, res) => {
   const passedPassword = req.body.password;
   
   // Check to make sure its legal before accessing the database.
-  if(checkCredentials.validateCredentials(passedEmail,passedPassword))
+  if(checkCredentials.validateLoginCredentials(passedEmail, passedPassword))
   {
     const user = await User.findOne({ email: passedEmail })
 

@@ -5,9 +5,20 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
    },
-  password: { type: String,
+  password: { 
+    type: String,
     required: true,
    },
+  username: {
+    type: String,
+    required: true,
+    default: "Anonymous"
+  },
+  private: {
+    type: Boolean,
+    required: true,
+    default: false
+  }
 });
 
 const User = mongoose.model("User", UserSchema);

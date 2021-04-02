@@ -15,7 +15,9 @@ export class LoginPageComponent implements OnInit {
 
   public user: UserModel = {
     email: "",
-    password: ""
+    password: "",
+    username: "",
+    private: false
   };
 
   form: FormGroup;

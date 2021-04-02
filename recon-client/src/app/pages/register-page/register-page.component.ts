@@ -15,7 +15,9 @@ export class RegisterPageComponent implements OnInit {
 
   public user: UserModel = {
     email: "",
-    password: ""
+    password: "",
+    username: "",
+    private: false
   };
 
   form: FormGroup;
@@ -30,6 +32,7 @@ export class RegisterPageComponent implements OnInit {
 
   register(): void 
   {
+    console.log("Data being sent to backend", this.form.getRawValue())
     this.http.post('https://localhost:4000/user/register', this.form.getRawValue())
     .subscribe(res => {
       if(res)
@@ -52,7 +55,9 @@ export class RegisterPageComponent implements OnInit {
   {
     this.form = this.formBuilder.group( {
       email: "",
-      password: ""
+      password: "",
+      username: "",
+      privateinfo: false
     })
   }
 

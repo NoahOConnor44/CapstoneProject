@@ -76,17 +76,14 @@ app.post("/add", verifyUserCookie, async (req, res) => {
 
     const token = req.cookies['jwt'];
     const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
-    let userObj = await User.findOne({_id: decoded._id})
-    let user = userObj.email;
+    let userObj = await User.findOne({_id: decoded._id}) // Find the user based off the the id passed in the cookie.
 
-    //title = "Stellaris";
-    //reviewText = "I love this sci-fi game. It is so immersive!";
+    let user = "Anonymous";
 
-    /*
-    once we verify the cookie is valid for a users token, verifyToken middleware, we need to access the database with their ID to check if they 
-    want to have public reviews and to determine what the username should be.
-    */
-
+    if(userObj.private == false)
+    {
+      user = userObj.username; // Change username to their actual username if they dont want to remain private
+    }
 
     const review = new Review({
         title,

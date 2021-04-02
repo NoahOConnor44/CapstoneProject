@@ -12,8 +12,7 @@ async function verifyUserCookie(req, res, next) {
     {
       // User not authenticated
       return res.status(404).send({
-        message: "User not authenticated.",
-        error: "Could not decode cookie"
+        message: "User not authenticated."
       })
     }
     // User token passed authentication
