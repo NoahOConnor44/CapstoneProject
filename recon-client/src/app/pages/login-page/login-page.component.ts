@@ -51,6 +51,8 @@ export class LoginPageComponent implements OnInit {
         }
         else
         {
+          console.log("User logged in with response: ", response);
+          this.User.setToken(response.token);
           // Succesfully logged in. The cookie was created. Navigate them to the homepage to use the website.
           this.router.navigate(['']);
         }

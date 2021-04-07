@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent},
   { path: 'game/search', component: SearchPageComponent},
   { path: 'user/view', component: UserPageComponent, canActivate: [AuthGuard]},
-  { path: 'register', component: RegisterPageComponent}
-];
+  { path: 'register', component: RegisterPageComponent},
+  { path: 'logout', component: LoginPageComponent}
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

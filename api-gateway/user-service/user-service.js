@@ -158,14 +158,15 @@ app.post("/login", async (req, res) => {
       
       // httpOnly stops script injection attacks since the front end cant access the cookie, only the backend. Since the cookie is stored on the browser. 
       // Its sent with every request so we can check to see if a jwt token exist in the cookie or if its  empty. If so they can write reviews etc.
-      res.cookie('jwt', token, {
-        httpOnly: true, // allows only the front end to access the cookie. Most secure practice. allows only backend access to cookie?
-        maxAge: 86400000, // cookie exist for 1 day, written in ms.
-        secure: true
-      });
+      // res.cookie('jwt', token, {
+      //   httpOnly: true, // allows only the front end to access the cookie. Most secure practice. allows only backend access to cookie?
+      //   maxAge: 86400000, // cookie exist for 1 day, written in ms.
+      //   secure: true
+      // });
 
       console.log("User logged in!");
       res.json({
+        token,
         success: "True",
         message: "Logged in"
       })
