@@ -7,6 +7,7 @@ import { LoginPageComponent} from "./pages/login-page/login-page.component";
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { SearchPageComponent } from "./pages/search-page/search-page.component";
 import { UserPageComponent } from './pages/user-page/user-page.component';
+import { LogoutPageComponent} from "./pages/logout-page/logout-page.component";
 
 const routes: Routes = [
   { path: 'game/load/:game', component: GameInfoPageComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'game/search', component: SearchPageComponent},
   { path: 'user/view', component: UserPageComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterPageComponent},
-  { path: 'logout', component: LoginPageComponent}
+  { path: 'logout', component: LogoutPageComponent}]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

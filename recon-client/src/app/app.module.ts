@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { UserService } from './services/user.service';
 import { CookieService } from 'ngx-cookie-service';
+import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CookieService } from 'ngx-cookie-service';
     SearchPageComponent,
     GameCardComponent,
     UserPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    LogoutPageComponent
   ],
   imports: [
     BrowserModule,

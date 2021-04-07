@@ -41,6 +41,7 @@ export class UserService {
 
     if (token != "") {
       this.loggedInStatus = true;
+      console.log("Token found in browser when logging in: ", token);
     } else {
       this.loggedInStatus = false;
     }
@@ -60,5 +61,9 @@ export class UserService {
     return this.http.post<any>("/api/user/login", {
       userInfo,
     });
+  }
+
+  logout() {
+    this.cookieService.delete("jwt");
   }
 }
