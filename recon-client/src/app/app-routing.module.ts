@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/auth.guard.service';
 import { GameInfoPageComponent } from "./pages/game-info-page/game-info-page.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { LoginPageComponent} from "./pages/login-page/login-page.component";
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: '', component: HomePageComponent},
   { path: 'login', component: LoginPageComponent},
   { path: 'game/search', component: SearchPageComponent},
-  { path: 'user/view', component: UserPageComponent},
+  { path: 'user/view', component: UserPageComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterPageComponent}
 ];
 

@@ -28,7 +28,12 @@ export class LoginPageComponent implements OnInit {
     private User: UserService,
     private formBuilder: FormBuilder,
     private http: HttpClient,
-  ) { }
+  ) { 
+    console.log("User is logged in: ", this.User.getIsLoggedIn());
+    if(this.User.getIsLoggedIn()) {
+      this.router.navigate(["/"]);
+    }
+  }
 
   login(): void 
   {
