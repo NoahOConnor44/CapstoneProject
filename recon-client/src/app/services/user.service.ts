@@ -14,7 +14,7 @@ export class UserService {
   ) { }
 
   setToken(token) {
-    this.cookieService.set("jwt", token);
+    this.cookieService.set("jwt", token, {path: "/"});
   }
 
   //function retrieves existing cookie on browser, returns "" if no existing cookie
