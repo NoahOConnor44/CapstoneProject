@@ -17,7 +17,8 @@ export class RegisterPageComponent implements OnInit {
     email: "",
     password: "",
     username: "",
-    private: false
+    private: false,
+    wishlist: ["",]
   };
 
   form: FormGroup;

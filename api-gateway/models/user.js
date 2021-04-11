@@ -18,6 +18,14 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
     default: false
+  },
+  wishlist: {
+    tags: 
+      [{
+        type: String
+      }],
+    required: false,
+    default: false
   }
 });
 

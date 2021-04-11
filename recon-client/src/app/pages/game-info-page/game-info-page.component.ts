@@ -119,7 +119,20 @@ export class GameInfoPageComponent implements OnInit {
 
   handleWishlistClick() 
   {
-
+    if(this.User.getIsLoggedIn())
+    {
+      console.log("Checked if user was logged in \n");
+      this.User.addToWishlist(this.game.title).subscribe((data) =>
+      {
+        if(data.success)
+        {
+          console.log("Game has been added to wishlist!");
+        }
+      }
+    )} 
+    else {
+      this.router.navigate(['/login']); //after logging in, reroute to game info page
+    }
   }
   
   handleReviewClick() 

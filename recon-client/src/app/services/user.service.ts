@@ -66,4 +66,15 @@ export class UserService {
   logout() {
     this.cookieService.delete("jwt");
   }
+
+  addToWishlist(gameTitle) {
+    //declare string containing cookie name
+    let cookieName = "jwt";
+    let token = this.getCookie(cookieName);
+
+    console.log("Made it to addToWishlist user function call \n");
+    return this.http.post<any>("/api/user/addToWishlist", {
+      gameTitle, token
+    });
+  }
 }

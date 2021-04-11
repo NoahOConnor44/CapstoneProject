@@ -162,7 +162,7 @@ app.post("/login", async (req, res) => {
       //   httpOnly: true, // allows only the front end to access the cookie. Most secure practice. allows only backend access to cookie?
       //   maxAge: 86400000, // cookie exist for 1 day, written in ms.
       //   secure: true
-      // });
+      //});
 
       console.log("User logged in!");
       res.json({
@@ -205,6 +205,46 @@ app.get('/user', async (req, res) =>
     message: "Unauthenticated"
     })
   }
+})
+
+app.post("/addToWishlist", async (req, res) => {
+  var gameToAddToWishlist = req.body.gameTitle;
+  console.log("!!!! ->", gameToAddToWishlist);
+
+  const token = req.body.token; // testing
+  const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
+
+  if(!decoded)
+  {
+    // User not authenticated
+    return res.status(404).send({
+      message: "User not authenticated."
+    })
+  }
+
+  let userObj = await User.findOne({_id: decoded._id}) // Find the user based off the the id passed in the cookie.
+  // console.log(userObj);
+  // userObj.wishlist.push(
+  //   {
+  //     wishlist: req.body.gameTitle
+  //   }
+  // );
+  // userObj.save();
+
+  /*
+  await User.updateOne(
+    { _id: decoded._id },
+    {
+      $set: {
+        tags: gameToAddToWishlist,
+        //wishlist: [...userObj.tags, gameToAddToWishlist],
+        //wishlist: gameToAddToWishlist,
+      },
+    }
+  );
+  */
+  
+  // await User.updateOne({_id: decoded.id}, {$push: {tags: gameToAddToWishlist}});
 })
 
 /*
