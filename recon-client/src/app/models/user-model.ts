@@ -3,6 +3,6 @@ export class UserModel {
     public password: string;
     public username: string;
     public private: boolean;
-    public wishlist: [String];
+    public wishlist: string[];
 }
 

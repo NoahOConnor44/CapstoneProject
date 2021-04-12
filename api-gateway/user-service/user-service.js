@@ -209,9 +209,8 @@ app.get('/user', async (req, res) =>
 
 app.post("/addToWishlist", async (req, res) => {
   var gameToAddToWishlist = req.body.gameTitle;
-  console.log("!!!! ->", gameToAddToWishlist);
 
-  const token = req.body.token; // testing
+  const token = req.body.token;
   const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
 
   if(!decoded)
@@ -222,29 +221,42 @@ app.post("/addToWishlist", async (req, res) => {
     })
   }
 
-  let userObj = await User.findOne({_id: decoded._id}) // Find the user based off the the id passed in the cookie.
-  // console.log(userObj);
-  // userObj.wishlist.push(
-  //   {
-  //     wishlist: req.body.gameTitle
-  //   }
-  // );
-  // userObj.save();
-
-  /*
-  await User.updateOne(
-    { _id: decoded._id },
+  await User.findOneAndUpdate(
     {
-      $set: {
-        tags: gameToAddToWishlist,
-        //wishlist: [...userObj.tags, gameToAddToWishlist],
-        //wishlist: gameToAddToWishlist,
+    _id: decoded._id
+    },
+    {
+      $addToSet: {
+      wishlist: gameToAddToWishlist,
       },
     }
   );
-  */
-  
-  // await User.updateOne({_id: decoded.id}, {$push: {tags: gameToAddToWishlist}});
+})
+
+app.post("/removeFromWishlist", async (req, res) => {
+  var gameToRemoveFromWishlist = req.body.gameTitle;
+
+  const token = req.body.token;
+  const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
+
+  if(!decoded)
+  {
+    // User not authenticated
+    return res.status(404).send({
+      message: "User not authenticated."
+    })
+  }
+
+  await User.findOneAndUpdate(
+    {
+    _id: decoded._id
+    },
+    {
+      $pull: {
+      wishlist: gameToRemoveFromWishlist,
+      },
+    }
+  );
 })
 
 /*

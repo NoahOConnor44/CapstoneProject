@@ -20,12 +20,9 @@ const UserSchema = new mongoose.Schema({
     default: false
   },
   wishlist: {
-    tags: 
-      [{
-        type: String
-      }],
+    type: [String],
     required: false,
-    default: false
+    default: ""
   }
 });
 
