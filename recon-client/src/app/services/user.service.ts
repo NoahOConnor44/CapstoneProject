@@ -77,4 +77,13 @@ export class UserService {
       gameTitle, token
     });
   }
+
+  viewUser() {
+    let cookieName = "jwt";
+    let token = this.getCookie(cookieName);
+
+    return this.http.post<any>("/api/user/view", {
+      token
+    });
+  }
 }

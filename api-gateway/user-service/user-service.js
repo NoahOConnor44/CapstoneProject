@@ -257,7 +257,35 @@ app.post("/removeFromWishlist", async (req, res) => {
       },
     }
   );
-})
+  
+  
+  //await User.updateOne({_id: decoded.id}, {$push: {tags: gameToAddToWishlist}});
+});
+
+app.post("/view", async(req, res) => {
+  const token = req.body.token;
+
+  const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
+
+  if(!decoded)
+  {
+    // User not authenticated
+    return res.json({
+      success: false,
+      message: "User not authenticated."
+    })
+  }
+
+  let userObj = await User.findOne({_id: decoded._id}) // Find the user based off the the id passed in the cookie.
+  console.log(userObj);
+
+  res.json({
+    success: true,
+    username: userObj.username,
+    wishlist: userObj.wishlist
+  });
+
+});
 
 /*
 // logout and reset the cookie for the user.

@@ -25,6 +25,8 @@
   border-radius: 2rem;
 }
 
+
+
 .form-label-group {
   position: relative;
   margin-bottom: 1rem;
@@ -32,7 +34,7 @@
 
 .form-label-group>input,
 .form-label-group>label {
-  padding: var(--input-padding-y) var(--input-padding-x);
+  padding: .5em 1em;
   height: auto;
   border-radius: 2rem;
 }
