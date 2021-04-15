@@ -75,49 +75,58 @@ app.post("/add", async (req, res) => {
     let title = req.body.title;
     let reviewText = req.body.reviewText;
 
-   // const token = req.cookies['jwt'];
-    const token = req.body.token; // testing
-    const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
-
-    if(!decoded)
+    // They clicked leave a review but didnt provide review text.
+    if(typeof reviewText == 'undefined')
     {
-      // User not authenticated
-      return res.status(404).send({
-        message: "User not authenticated."
-      })
+      // Dont add the review.
     }
-
-    let userObj = await User.findOne({_id: decoded._id}) // Find the user based off the the id passed in the cookie.
-
-    let user = "Anonymous";
-
-    if(userObj.private == false)
+    else
     {
-      user = userObj.username; // Change username to their actual username if they dont want to remain private
-    }
+      // const token = req.cookies['jwt'];
+      const token = req.body.token; // testing
+      const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
 
-    const review = new Review({
-        title,
-        reviewText,
-        user
-    });
+      if(!decoded)
+      {
+        // User not authenticated
+        return res.status(404).send({
+          message: "User not authenticated."
+        })
+      }
 
-    const result = await review.save();
+      let userObj = await User.findOne({_id: decoded._id}) // Find the user based off the the id passed in the cookie.
 
-    if(result) {
-      console.log("Added review!");
+      let user = "Anonymous";
+
+      if(userObj.private == false)
+      {
+        user = userObj.username; // Change username to their actual username if they dont want to remain private
+      }
+
+      const review = new Review({
+          title,
+          reviewText,
+          user
+      });
+
+      const result = await review.save();
+
+      if(result) {
+        console.log("Added review!");
+          return res.json({
+              success: true,
+              message: "Review added!",
+          });
+      } 
+      else {
+        console.log("COULDNT add review!");
         return res.json({
-            success: true,
-            message: "Review added!",
-         });
-     } 
-     else {
-      console.log("COULDNT add review!");
-       return res.json({
-             success: false,
-             message: "Review not added!",
-         });
-     }
+              success: false,
+              message: "Review not added!",
+          });
+      }
+    }
+
  });
 
 module.exports = app;
