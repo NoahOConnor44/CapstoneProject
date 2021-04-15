@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { UserService } from 'src/app/services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,18 @@ export class ReviewsService {
 
   constructor(
     private http: HttpClient,
+    private User: UserService,
   ) { }
 
   //Add review game 
-  addReview(gameTitle) {
+  addReview(title, reviewText) {
+    
+    //declare string containing cookie name
+    let cookieName = "jwt";
+    let token = this.User.getCookie(cookieName);
+
     return this.http.post<any>("/api/review/add", {
-      gameTitle,
+      title, reviewText, token
     });
   }
 

@@ -13,6 +13,9 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { ReviewsService } from './services/reviews.service';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { UserService } from './services/user.service';
+import { CookieService } from 'ngx-cookie-service';
+import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     SearchPageComponent,
     GameCardComponent,
     UserPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    LogoutPageComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     FormsModule,  // Needed for login page
     ReactiveFormsModule // Needed for login page
   ],
-  providers: [GameService, ReviewsService],
+  providers: [GameService, ReviewsService, UserService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

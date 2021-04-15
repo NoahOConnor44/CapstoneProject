@@ -17,7 +17,8 @@ export class LoginPageComponent implements OnInit {
     email: "",
     password: "",
     username: "",
-    private: false
+    private: false,
+    wishlist: ["",]
   };
 
   form: FormGroup;
@@ -28,7 +29,12 @@ export class LoginPageComponent implements OnInit {
     private User: UserService,
     private formBuilder: FormBuilder,
     private http: HttpClient,
-  ) { }
+  ) { 
+    console.log("User is logged in: ", this.User.getIsLoggedIn());
+    if(this.User.getIsLoggedIn()) {
+      this.router.navigate(["/"]);
+    }
+  }
 
   login(): void 
   {
@@ -46,6 +52,8 @@ export class LoginPageComponent implements OnInit {
         }
         else
         {
+          console.log("User logged in with response: ", response);
+          this.User.setToken(response.token);
           // Succesfully logged in. The cookie was created. Navigate them to the homepage to use the website.
           this.router.navigate(['']);
         }

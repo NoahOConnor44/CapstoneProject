@@ -68,14 +68,25 @@ app.post("/load", async (req, res) => {
 
 //addReview receiving review information from frontend and saving to reviews database
 // should add verifyToken middleware once we update it with the new approach.
-app.post("/add", verifyUserCookie, async (req, res) => {
+// possibly add middleware functoin back and remove the if (!decoded) block if so <---==='=
+app.post("/add", async (req, res) => {
 
     console.log("Made it to the review service.");
     let title = req.body.title;
     let reviewText = req.body.reviewText;
 
-    const token = req.cookies['jwt'];
+   // const token = req.cookies['jwt'];
+    const token = req.body.token; // testing
     const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
+
+    if(!decoded)
+    {
+      // User not authenticated
+      return res.status(404).send({
+        message: "User not authenticated."
+      })
+    }
+
     let userObj = await User.findOne({_id: decoded._id}) // Find the user based off the the id passed in the cookie.
 
     let user = "Anonymous";
@@ -94,12 +105,14 @@ app.post("/add", verifyUserCookie, async (req, res) => {
     const result = await review.save();
 
     if(result) {
+      console.log("Added review!");
         return res.json({
             success: true,
             message: "Review added!",
          });
      } 
      else {
+      console.log("COULDNT add review!");
        return res.json({
              success: false,
              message: "Review not added!",

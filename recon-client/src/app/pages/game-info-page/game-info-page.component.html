@@ -17,7 +17,10 @@
 
     <!-- Game Page Column  -->
     <div class="col-md-4">
-      <button class="button button1" onclick="location.href='../../login'">Add to Wishlist</button>
+
+      <button class="button button1" (click)="handleWishlistClick()">Add to Wishlist</button>
+      
+      
       <h3 class="my-3">Description </h3>
       <p class="card-text"> {{ game.description }}</p>
       <h3 class="my-3">Game information</h3>
@@ -31,7 +34,12 @@
       </ul>
 
       <br>
-      <button class="button button2" onclick="location.href='../../login'">Leave a Review</button>
+      <div class="col-md-6">
+        <div class="form-group">
+            <textarea name="review" id="review" class="form-control" rows="9" cols="25" required="required" placeholder="Leave a game review here!" [(ngModel)] = "reviewTextInput"></textarea>
+        </div>
+      </div>
+      <button class="button button2" (click)="handleReviewClick()">Leave a Review</button>
 
     </div>
 

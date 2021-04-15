@@ -158,14 +158,15 @@ app.post("/login", async (req, res) => {
       
       // httpOnly stops script injection attacks since the front end cant access the cookie, only the backend. Since the cookie is stored on the browser. 
       // Its sent with every request so we can check to see if a jwt token exist in the cookie or if its  empty. If so they can write reviews etc.
-      res.cookie('jwt', token, {
-        httpOnly: true, // allows only the front end to access the cookie. Most secure practice.
-        maxAge: 86400000, // cookie exist for 1 day, written in ms.
-        secure: true
-      });
+      // res.cookie('jwt', token, {
+      //   httpOnly: true, // allows only the front end to access the cookie. Most secure practice. allows only backend access to cookie?
+      //   maxAge: 86400000, // cookie exist for 1 day, written in ms.
+      //   secure: true
+      //});
 
       console.log("User logged in!");
       res.json({
+        token,
         success: "True",
         message: "Logged in"
       })
@@ -205,6 +206,86 @@ app.get('/user', async (req, res) =>
     })
   }
 })
+
+app.post("/addToWishlist", async (req, res) => {
+  var gameToAddToWishlist = req.body.gameTitle;
+
+  const token = req.body.token;
+  const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
+
+  if(!decoded)
+  {
+    // User not authenticated
+    return res.status(404).send({
+      message: "User not authenticated."
+    })
+  }
+
+  await User.findOneAndUpdate(
+    {
+    _id: decoded._id
+    },
+    {
+      $addToSet: {
+      wishlist: gameToAddToWishlist,
+      },
+    }
+  );
+})
+
+app.post("/removeFromWishlist", async (req, res) => {
+  var gameToRemoveFromWishlist = req.body.gameTitle;
+
+  const token = req.body.token;
+  const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
+
+  if(!decoded)
+  {
+    // User not authenticated
+    return res.status(404).send({
+      message: "User not authenticated."
+    })
+  }
+
+  await User.findOneAndUpdate(
+    {
+    _id: decoded._id
+    },
+    {
+      $pull: {
+      wishlist: gameToRemoveFromWishlist,
+      },
+    }
+  );
+  
+  
+  //await User.updateOne({_id: decoded.id}, {$push: {tags: gameToAddToWishlist}});
+});
+
+app.post("/view", async(req, res) => {
+  const token = req.body.token;
+
+  const decoded = jwt.verify(token, process.env.JWTSECRETKEY);
+
+  if(!decoded)
+  {
+    // User not authenticated
+    return res.json({
+      success: false,
+      message: "User not authenticated."
+    })
+  }
+
+  let userObj = await User.findOne({_id: decoded._id}) // Find the user based off the the id passed in the cookie.
+  console.log(userObj);
+
+  res.json({
+    success: true,
+    username: userObj.username,
+    wishlist: userObj.wishlist
+  });
+
+});
 
 /*
 // logout and reset the cookie for the user.

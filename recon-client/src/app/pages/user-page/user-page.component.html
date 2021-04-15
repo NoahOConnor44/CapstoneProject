@@ -19,7 +19,7 @@
                 <!-- Added a few linebreaks to seperate the content from the header bar.-->
                 <br>
                 <br>
-                <h5 class="display-1">Welcome, Username.</h5>
+                <h5 class="display-1">Welcome, {{userInfo.username}}.</h5>
             </div>
         </div>
         <div class="container">
@@ -53,18 +53,24 @@
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-4 image-grid-item">
-                    <div style="background-image: url(../assets/Cyberpunk.jpg);" class="entry-cover image-grid-cover has-image">
-                        <a href="#" class="image-grid-clickbox"></a>
+                    <div class="entry-cover image-grid-cover has-image">
+                        <a href="#" class="image-grid-clickbox">
+                            <img src="../assets/{{userInfo.wishlist[0]}}.jpg" class="entry-cover image-grid-cover has-image">
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 image-grid-item">
-                    <div style="background-image: url(../assets/Doom.jpg);" class="entry-cover image-grid-cover has-image">
-                        <a href="#" class="image-grid-clickbox"></a>
+                    <div class="entry-cover image-grid-cover has-image">
+                        <a href="#" class="image-grid-clickbox">
+                            <img src="../assets/{{userInfo.wishlist[1]}}.jpg" class="entry-cover image-grid-cover has-image">
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 image-grid-item">
-                    <div style="background-image: url(../assets/Prey.jpg);" class="entry-cover image-grid-cover has-image">
-                        <a href="#" class="image-grid-clickbox"></a>
+                    <div class="entry-cover image-grid-cover has-image">
+                        <a href="#" class="image-grid-clickbox">
+                            <img src="../assets/{{userInfo.wishlist[2]}}.jpg" class="entry-cover image-grid-cover has-image">
+                        </a>
                     </div>
                 </div>
             </div>

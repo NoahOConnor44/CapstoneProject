@@ -5,6 +5,7 @@ import { GameService } from "src/app/services/game.service";
 import { GameModel } from "src/app/models/game-model";
 import { ReviewModel } from "src/app/models/review-model";
 import { ReviewsService } from 'src/app/services/reviews.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-game-info-page',
@@ -33,13 +34,19 @@ export class GameInfoPageComponent implements OnInit {
     user: ""
   }
 
+  public reviewTextInput: string;
+
   // Create variables for using necessary imports
   constructor(  
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private Game: GameService, 
-    private Review: ReviewsService
-  ) {}
+    private Review: ReviewsService,
+    private User: UserService,
+  ) {
+    this.game.title = this.activatedRoute.snapshot.paramMap.get("game");
+    this.game.title = this.game.title.replace(/:/g,'');
+  }
 
   // Method used to display game info on game page
   displayGame() {
@@ -109,7 +116,46 @@ export class GameInfoPageComponent implements OnInit {
       }
     });
   }
+
+  handleWishlistClick() 
+  {
+    if(this.User.getIsLoggedIn())
+    {
+      console.log("Checked if user was logged in \n");
+      this.User.addToWishlist(this.game.title).subscribe((data) =>
+      {
+        if(data.success)
+        {
+          console.log("Game has been added to wishlist!");
+        }
+      }
+    )} 
+    else {
+      this.router.navigate(['/login']); //after logging in, reroute to game info page
+    }
+  }
   
+  handleReviewClick() 
+  {
+    if(this.User.getIsLoggedIn())
+    {
+
+      this.review.title = this.game.title;
+      this.Review.addReview(this.review.title, this.reviewTextInput).subscribe((data) => 
+      {
+        if(data.success) 
+        {
+          console.log("Your review has been added!"); //replace text box with alert displaying this message
+        }
+      }
+    )}
+    // If the user is not logged in route them to the login page
+    else {
+      this.router.navigate(['/login']); //after logging in, reroute to game info page
+    }
+
+  }
+
   ngOnInit(): void {
     this.displayGame();
     this.displayReviews();
