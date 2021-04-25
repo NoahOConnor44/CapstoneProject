@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router"
-import { Router } from "@angular/router";
+import { ReviewModel } from "src/app/models/review-model";
+import { ReviewsService } from 'src/app/services/reviews.service';
 import { UserModel } from "src/app/models/user-model";
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,25 +11,41 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserPageComponent implements OnInit {
 
+  public reviews: ReviewModel;
+
   public userInfo: UserModel;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
+    private Review: ReviewsService,
     private User: UserService,
   ) { }
+
+  async displayUserReviews(): Promise<Number>
+  {
+    this.Review.getUserReview(this.userInfo.username).subscribe((data) => {
+      if (data.success) {
+        this.reviews = data.reviews;
+      } else {
+        alert(
+          "The game reviews could not be retrieved from the database."
+        );
+      }
+      Promise.resolve(0);
+    });
+    return;
+  }
 
   async getUser(): Promise<Number> {
     this.userInfo = new UserModel();
     this.User.viewUser().subscribe((data) =>
     {
+      console.log(data);
       if(data.success)
       {
         data.wishlist.shift();
-        console.log(data);
         this.userInfo.username = data.username;
         this.userInfo.wishlist = data.wishlist;
-        console.log(this.userInfo.wishlist[0]);
+        this.displayUserReviews();
       }
       Promise.resolve(0);
     }

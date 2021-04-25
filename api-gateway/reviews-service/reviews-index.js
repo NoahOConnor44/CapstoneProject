@@ -36,6 +36,30 @@ app.use(cookieParser());
 
 mongoose.Promise = Promise;
 
+//load review endpoint for accessing reviews filtered by username from reviews database  
+app.post("/loadByUser", async (req, res) => {
+
+  const reviewUsername = req.body.username;
+  let reviews;
+
+  reviews = await Review.find({user: reviewUsername});
+
+  //branch executes if review not found
+  if(!reviews){
+    return res.json({
+      success: false,
+      message: "Reviews not retrieved from database.",
+    })
+  }
+
+  //wraps up json packet with reviews 
+  res.json({
+    reviews,
+    success: true,
+    message: "Reviews information sucessfully retrieved from database.",
+  })
+})
+
 //loadGame endpoint for accessing video game info to load reviews from database       
 app.post("/load", async (req, res) => {
 

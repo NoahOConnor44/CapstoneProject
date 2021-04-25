@@ -26,25 +26,9 @@
             <div class="page-header">
                 <h1 class="display-1">Game Reviews</h1>
             </div>
-            <div class="row grid-divider">
-                <div class="col-sm-4">
-                    <div class="col-padding">
-                        <h3>Column 1</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima expedita incidunt rerum.</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="col-padding">
-                        <h3>Column 2</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate placeat suscipit maxime tenetur officiis asperiores quae molestias fugiat praesentium dolorum.</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="col-padding">
-                        <h3>Column 3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab veniam aperiam numquam cupiditate maiores repudiandae ea dicta, sunt rerum corporis. Ab veniam aperiam numquam cupiditate maiores repudiandae ea dicta, sunt rerum corporis. Ab veniam aperiam numquam cupiditate maiores repudiandae ea dicta.</p>
-                    </div>
-                </div>
+            <div class="row grid-divider"
+                *ngFor="let review of reviews">
+                <app-review-card [reviews]="review"></app-review-card>
             </div>
         </div>
         <div class="container">
