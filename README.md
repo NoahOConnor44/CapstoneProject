@@ -16,5 +16,5 @@ CIS4592 - Recon Game Suggestion Capstone Project
   - Change directory in each terminal to each directory listed above then type "npm install" to install the dependencies for the service
   - Type "npm start" to run each service.
   - Once each service is running open your web browser and navigate to https://localhost:4200 to visit our website!
-  - Note: Before accessing the webpage in Chrome.. navigate to chrome://flags/ and ENABLE Allow invalid certificates for resources loaded from localhost.
+  - **Note: Before accessing the webpage in Chrome.. navigate to chrome://flags/ and ENABLE Allow invalid certificates for resources loaded from localhost.**
     + This allows our self signed certificate to be validated by Chrome so HTTPS works. If this isnt done the website wont function as expected.
