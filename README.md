@@ -7,7 +7,7 @@ CIS4592 - Recon Game Suggestion Capstone Project
   - Manuals
   - Project Code
 # 2) Installation (Prerequisites) 
-  - NodeJS (v. 15.9 is what we are using)
+  - NodeJS (v. 15.9)
   - Angular CLI (v. 11.2.9)
 # 3) Running the application
   - Unzip the GitHub repository files onto your PC.
