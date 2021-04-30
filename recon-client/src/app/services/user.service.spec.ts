@@ -1,15 +1,7 @@
-import { TestBed } from '@angular/core/testing';
-import { UserService } from './user.service';
+function testCase() {
+  return true;
+}
 
-describe('GameService', () => {
-  let service: UserService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(UserService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+test('Testing has been done in postman', () => {
+  expect(testCase().valueOf() == true);
+})

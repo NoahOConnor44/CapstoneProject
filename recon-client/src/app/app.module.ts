@@ -17,6 +17,7 @@ import { UserService } from './services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 import { ReviewCardComponent } from './modules/review-card/review-card.component';
+import { AuthGuard } from 'src/auth.guard.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ReviewCardComponent } from './modules/review-card/review-card.component
     FormsModule,  // Needed for login page
     ReactiveFormsModule // Needed for login page
   ],
-  providers: [GameService, ReviewsService, UserService, CookieService],
+  providers: [GameService, ReviewsService, UserService, CookieService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
