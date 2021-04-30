@@ -30,4 +30,12 @@ export class ReviewsService {
       gameTitle,
     });
   }
+
+  // Retrieve reviews for a certain user.
+  public getUserReview(username){
+    return this.http.post<any>("/api/review/loadByUser", {
+      username,
+    });
+  }
+
 }

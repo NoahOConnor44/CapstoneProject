@@ -16,6 +16,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { UserService } from './services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
+import { ReviewCardComponent } from './modules/review-card/review-card.component';
 import { AuthGuard } from 'src/auth.guard.service';
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AuthGuard } from 'src/auth.guard.service';
     GameCardComponent,
     UserPageComponent,
     RegisterPageComponent,
-    LogoutPageComponent
+    LogoutPageComponent,
+    ReviewCardComponent
   ],
   imports: [
     BrowserModule,

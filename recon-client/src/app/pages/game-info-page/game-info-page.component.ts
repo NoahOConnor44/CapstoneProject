@@ -31,7 +31,8 @@ export class GameInfoPageComponent implements OnInit {
   public review: ReviewModel = {
     title: "",
     reviewText: "",
-    user: ""
+    user: "",
+    link: ""
   }
 
   public reviewTextInput: string;
@@ -96,7 +97,6 @@ export class GameInfoPageComponent implements OnInit {
 
   displayReviews()
   {
-    //TO DO: How to retrieve game title 
     this.game.title = this.activatedRoute.snapshot.paramMap.get("game");
 
     // Handle game title colons by removing them to load image titles

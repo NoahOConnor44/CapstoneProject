@@ -16,8 +16,6 @@ export class SearchPageComponent implements OnInit {
 
   // Create variables for using necessary imports
   constructor(
-    private route: ActivatedRoute,     
-    private router: Router,
     private Game: GameService, 
     ) {}
 
