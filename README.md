@@ -3,9 +3,9 @@ CIS4592 - Recon Game Suggestion Capstone Project
 
 # To run the application
 # 1) Github Directory Structure
-  - Report
-  - Manuals
-  - Project Code
+  - Report - Folder to hold the final submission report pdf.
+  - Manuals - Folder to hold the user and administrator manual pdf files.
+  - Project Code - Folder to hold all the projects code files.
 # 2) Installation (Prerequisites) 
   - NodeJS (v. 15.9)
   - Angular CLI (v. 11.2.9)
